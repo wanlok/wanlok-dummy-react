@@ -5,32 +5,32 @@ import Modal from "./Modal";
 import classes from "./PostsList.module.css";
 
 function PostsList(props) {
-  const [enteredValue, setEnteredValue] = useState("");
-  const [enteredAuthor, setEnteredAuthor] = useState("");
+  const [posts, setPosts] = useState([]);
 
-  function changeBodyHandler(event) {
-    setEnteredValue(event.target.value);
-  }
-
-  function changeAuthorHandler(event) {
-    setEnteredAuthor(event.target.value);
+  function addPostHandler(postData) {
+    setPosts((existingPosts) => [postData, ...existingPosts]);
   }
 
   return (
     <>
       {props.modalIsVisible && (
         <Modal onClose={props.onClose}>
-          <NewPost
-            changeBodyHandler={changeBodyHandler}
-            changeAuthorHandler={changeAuthorHandler}
-            onClose={props.onClose}
-          />
+          <NewPost onClose={props.onClose} onAddPost={addPostHandler} />
         </Modal>
       )}
-      <ul className={classes.posts}>
-        <Post author={enteredAuthor} body={enteredValue} />
-        <Post author="Peter" body="BBBBB" />
-      </ul>
+      {posts.length > 0 && (
+        <ul className={classes.posts}>
+          {posts.map((post) => (
+            <Post key={post.body} author={post.author} body={post.body} />
+          ))}
+        </ul>
+      )}
+      {posts.length == 0 && (
+        <div style={{ textAlign: "center", color: "white" }}>
+          <h2>There are no posts yet.</h2>
+          <p>Start adding some!</p>
+        </div>
+      )}
     </>
   );
 }
