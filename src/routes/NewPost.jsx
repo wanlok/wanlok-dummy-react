@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import classes from "./NewPost.module.css";
 import Modal from "../components/Modal";
 
@@ -42,9 +43,9 @@ function NewPost(props) {
           />
         </p>
         <p className={classes.actions}>
-          <button type="button" onClick={props.onClose}>
+          <Link to=".." type="button">
             Cancel
-          </button>
+          </Link>
           <button>Submit</button>
         </p>
       </form>
