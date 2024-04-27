@@ -1,10 +1,21 @@
-import { useLoaderData } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 
 import Post from "./Post";
 import classes from "./PostsList.module.css";
 
 function PostsList() {
   const posts = useLoaderData();
+
+  // useEffect(() => {
+  //   async function fetchPosts() {
+  //     setIsFetching(true);
+
+  //     setPosts(resData.posts);
+  //     setIsFetching(false);
+  //   }
+  //   fetchPosts();
+  // }, []);
 
   function addPostHandler(postData) {
     fetch("http://localhost:8080/posts", {
@@ -32,6 +43,11 @@ function PostsList() {
           <p>Start adding some!</p>
         </div>
       )}
+      {/* {isFetching && (
+        <div style={{ textAlign: "center", color: "white" }}>
+          <p>Loading posts...</p>
+        </div>
+      )} */}
     </>
   );
 }
